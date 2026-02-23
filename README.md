@@ -18,4 +18,4 @@ As principais modificações implementadas em relação à versão original fora
 
 * Identificação da origem dos domínios testados, adicionando rótulo de fonte (CERT.pl ou URLHaus) em cada entrada.
 
-* Saída estruturada em CSV com delimitador ;, compatível com planilhas no padrão regional brasileiro.
+* Saída estruturada em CSV com delimitador ";" compatível com planilhas no padrão regional brasileiro.
