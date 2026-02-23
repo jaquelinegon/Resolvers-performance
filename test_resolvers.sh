@@ -12,9 +12,7 @@ for cmd in "${required_commands[@]}"; do
   fi
 done
 
-#
-# Define files and download the lists.
-#
+
 hosts_list="dnsblock_hosts_$(date '+%Y%m%d').txt"
 result="dnsblock_result_$(date '+%Y%m%d').csv"
 
@@ -27,15 +25,12 @@ wget --quiet -O "list_cert.txt" "https://hole.cert.pl/domains/v2/domains.txt"
 #
 echo "### Cleaning and selecting 1000 first from CERT then URLHaus."
 
-# 1. Limpa a CERT.pl, pega os 100 PRIMEIROS e etiqueta a fonte
 sed -i '/^[[:blank:]]*#/d; s/#.*//; s/^0.0.0.0 //; s/^[[:space:]]*//; s/[[:space:]]*$//; /^$/d' list_cert.txt
 head -n 1000 list_cert.txt | awk '{print $0 ";CERT.pl"}' > dnsblock_test_list_concat.txt
 
-# 2. Limpa a URLHaus, pega os 500 PRIMEIROS e etiqueta a fonte
 sed -i '/^[[:blank:]]*#/d; s/#.*//; s/^0.0.0.0 //; s/^[[:space:]]*//; s/[[:space:]]*$//; /^$/d' list_url.txt
 head -n 1000 list_url.txt | awk '{print $0 ";URLHaus"}' >> dnsblock_test_list_concat.txt
 
-# 3. Remove duplicatas MANTENDO A ORDEM de inserção (CERT no topo, URLHaus embaixo)
 awk -F';' '!seen[$1]++' dnsblock_test_list_concat.txt > "$hosts_list"
 
 totalhosts=$(wc -l < "$hosts_list")
@@ -60,7 +55,6 @@ ns_ip_array=(
   "9.9.9.9"
 )
 
-# Header com coluna "Source" integrada
 header="Domain name;Source"
 for i in "${!ns_sp_array[@]}"; do
   header="$header;${ns_sp_array[$i]} - ${ns_ip_array[$i]}"
@@ -110,7 +104,7 @@ echo -e "\n### Start parallel test at $(date)"
 echo -e "\n" >> "$result"
 echo "$header" >> "$result"
 
-# Loop lendo domínio e fonte (Source)
+
 while IFS=';' read -r domain source
 do
   if [ -z "$domain" ]; then continue; fi
