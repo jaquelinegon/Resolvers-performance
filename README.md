@@ -1,6 +1,6 @@
 # DNSBlock Test Script
 
-Este script é uma adaptação do trabalho original de Kris Lowet: https://gist.github.com/KrisLowet/675ba34e682c6d2afbc53fc317b41e85
+Este script é uma adaptação do trabalho original de Kris Lowet (https://gist.github.com/KrisLowet/675ba34e682c6d2afbc53fc317b41e85) para a realização do meu trabalho de conclusão de curso
 
 A estrutura principal foi mantida, porém foram realizadas modificações para a experimentação acadêmica reprodutível
 
